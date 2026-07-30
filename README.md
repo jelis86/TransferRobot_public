@@ -56,20 +56,6 @@ graph TD
     STT --> LLM[Llama Client / AI Router]
     LLM --> Sound
 
-AppFlowState (State Machine): Tracks and broadcasts the current page and active execution steps of the robot.
-
-TransferRobotAlertManager (Safety Core): Aggregates obstacle data from both cameras and LiDAR to issue immediate control overrides (controlCommandIssued) and vocal safety warnings.
-
-TtsManager / SoundManager: Converts system alerts, navigation updates, and AI responses into audio playback.
-
-⚙️ Environment Variables
-The application can alter its runtime behavior dynamically depending on the following environment variables:
-
-Variable,Default,Description
-TRANSFER_ROBOT_SHOOTING_PAGE,-,"Set the path for the specialized shooting/media mode pageexport TRANSFER_ROBOT_SHOOTING_PAGE=""/home/rb/views/shooting.qml"""
-TRANSFER_ROBOT_DISABLE_INTERNAL_TTS,0,"Toggle internal TTS voice output (0: Enabled, 1: Disabled)export TRANSFER_ROBOT_DISABLE_INTERNAL_TTS=0"
-TRANSFER_ROBOT_DISABLE_CAMERA_AUTO_START,0,"Toggle Camera pipeline auto-start (0: Auto-start Standby, 1: Manual Start)export TRANSFER_ROBOT_DISABLE_CAMERA_AUTO_START=0"
-
 <img width="1350" height="759" alt="image" src="https://github.com/user-attachments/assets/963ef787-28c3-4dec-b433-0fb2307e108f" />
 
 <img width="875" height="656" alt="이승로봇_프로토타입" src="https://github.com/user-attachments/assets/50c592d6-2fa9-42e1-ad7f-f2505f0910ad" />
