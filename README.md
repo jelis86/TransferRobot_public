@@ -1,3 +1,6 @@
+<img width="1350" height="759" alt="image" src="https://github.com/user-attachments/assets/963ef787-28c3-4dec-b433-0fb2307e108f" />
+
+<img width="875" height="656" alt="이승로봇_프로토타입" src="https://github.com/user-attachments/assets/50c592d6-2fa9-42e1-ad7f-f2505f0910ad" />
 # 🤖 Transfer Robot 
 > **Control System & Multi-Language AI Voice Assistant**
 
@@ -55,6 +58,4 @@ graph TD
     VoiceRec --> STT[GoogleSpeechClient]
     STT --> LLM[Llama Client / AI Router]
     LLM --> Sound
-<img width="1350" height="759" alt="image" src="https://github.com/user-attachments/assets/963ef787-28c3-4dec-b433-0fb2307e108f" />
 
-<img width="875" height="656" alt="이승로봇_프로토타입" src="https://github.com/user-attachments/assets/50c592d6-2fa9-42e1-ad7f-f2505f0910ad" />
