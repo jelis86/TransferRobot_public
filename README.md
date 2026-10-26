@@ -1,10 +1,12 @@
 <img width="1350" height="759" alt="image" src="https://github.com/user-attachments/assets/963ef787-28c3-4dec-b433-0fb2307e108f" />
 
 <img width="875" height="656" alt="이승로봇_프로토타입" src="https://github.com/user-attachments/assets/50c592d6-2fa9-42e1-ad7f-f2505f0910ad" />
-# 🤖 Transfer Robot 
+# 🤖 Transfer Robot
 > **Control System & Multi-Language AI Voice Assistant**
 
-This repository contains the core software for an autonomous **Transfer Robot**, seamlessly combining a **ROS2** hardware control framework with a high-performance **Qt/QML** Graphical User Interface (GUI). 
+> **Public repository scope:** This repository contains project documentation and screenshots only. Source code, build files, and runnable binaries are not included in this checkout. Implementation details below describe the project and cannot be independently verified from this repository.
+
+This repository documents the software architecture of a **Transfer Robot**, combining a **ROS2** hardware control framework with a **Qt/QML** Graphical User Interface (GUI).
 
 The system coordinates real-time hardware risk management, local/cloud AI routing, an LLM-powered (Llama) voice assistant, and multi-modal vision processing.
 
@@ -28,7 +30,7 @@ The system coordinates real-time hardware risk management, local/cloud AI routin
 
 ### 🎯 ROS2 Autonomous Navigation & Hardware Interactivity
 * **Native ROS2 Integration:** Connects directly to robot control components using `rclcpp::Node` and a dedicated `RosInterface`.
-* **Multi-Threaded Executor:** Utilizes a standalone C++ thread (`std::thread`) for the background ROS spin (`exec.spin()`). This ensures real-time sensor data streaming without freezing or stuttering the main UI thread.
+* **Multi-Threaded Executor:** Utilizes a standalone C++ thread (`std::thread`) for the background ROS spin (`exec.spin()`). This separates ROS event processing from the main UI thread.
 * **Sensor Management:** Processes immediate hazard feedback using an integrated `LidarManager` and obstacle detection bounding boxes.
 
 ### 🎙️ Intelligent Voice Assistant & TTS Pipeline
@@ -37,7 +39,7 @@ The system coordinates real-time hardware risk management, local/cloud AI routin
 * **Flexible Exceptions:** Supports environment variables (e.g., `TRANSFER_ROBOT_DISABLE_INTERNAL_TTS`) to dynamically mute audio feedback during specific operation modes (e.g., shooting/media mode).
 
 ### 👁️ High-Performance Vision Pipeline (Depth & Skeleton)
-* **Isolated Thread Execution:** The `CameraManager` worker is offloaded to a dedicated `QThread` (`moveToThread`) to completely prevent GUI lag.
+* **Isolated Thread Execution:** The `CameraManager` worker is offloaded to a dedicated `QThread` (`moveToThread`) to keep camera work separate from UI rendering.
 * **OAK Camera & Skeleton Tracking:** Drives a low-power standby pipeline capable of human detection (`personFoundChanged`), distance tracking (`distanceUpdated`), and frame rendering via `VideoItem`.
 * **Risk Evaluation Engine:** Feeds vision and LiDAR-based `ObstacleSummary` packages straight into the `TransferRobotAlertManager` to alter robot paths or issue emergency stops.
 
@@ -53,9 +55,15 @@ graph TD
     Camera[OAK Camera] -->|Vision Data| AlertManager
     AlertManager -->|Override / Emergency Stop| ROS2[ROS2 Navigation Node]
     AlertManager -->|Vocal Safety Warning| Sound[TtsManager / SoundManager]
-    
+
     Mic[Microphone Input] -->|16kHz Audio| VoiceRec[VoiceRecorder + VAD]
     VoiceRec --> STT[GoogleSpeechClient]
     STT --> LLM[Llama Client / AI Router]
     LLM --> Sound
+```
 
+## Deployment scope
+
+The described production environment integrates Linux, ROS 2, and robot hardware. The Windows path is intended for UI mocking and debugging; it is not equivalent to the hardware deployment. Qt and ROS 2 versions listed above describe alternatives, not a verified compatibility matrix.
+
+No build scripts, robot configuration, model files, or test data are included here, so this checkout is not runnable. Cloud routing and Google speech recognition require network services; local LLM inference alone does not make the complete voice pipeline offline. No navigation, latency, or safety-validation benchmark is published in this repository.
